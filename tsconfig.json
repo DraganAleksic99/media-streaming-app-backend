@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "Node16",
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "preserveConstEnums": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "skipLibCheck": true,
+    "moduleResolution": "Node16"
+  },
+  "include": ["./global.d.ts", "./src/**/*.ts"],
+  "exclude": ["./node_modules"]
+}
