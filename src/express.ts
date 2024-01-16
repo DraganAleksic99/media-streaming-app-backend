@@ -5,6 +5,7 @@ import compress from 'compression'
 import cors from 'cors'
 import helmet from 'helmet'
 import userRoutes from '../src/routes/user.routes'
+import authRoutes from '../src/routes/auth.routes'
 
 const app: Express = express()
 
@@ -16,6 +17,7 @@ app.use(helmet())
 app.use(cors())
 
 app.use('/', userRoutes)
+app.use('/', authRoutes)
 
 // eslint-disable-next-line
 app.use((err, req: Request, res: Response, next: NextFunction) => {
