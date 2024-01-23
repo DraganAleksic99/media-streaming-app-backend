@@ -14,12 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
 app.use(compress())
 app.use(helmet())
-app.use(
-  cors({
-    credentials: true,
-    origin: 'http://localhost:5173'
-  })
-)
+app.use(cors())
 
 app.use('/', userRoutes)
 app.use('/', authRoutes)
