@@ -11,6 +11,8 @@ router
   .put(authController.requireSignIn, authController.hasAuthorization, userCtrl.update)
   .delete(authController.requireSignIn, authController.hasAuthorization, userCtrl.remove)
 
+router.route('/api/users/photo/:userId').get(userCtrl.photo)
+
 router.param('userId', userCtrl.userById)
 
 export default router

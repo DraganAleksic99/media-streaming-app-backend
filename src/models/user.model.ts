@@ -4,8 +4,13 @@ import bcrypt from 'bcrypt'
 export interface IUser {
   name: string
   email: string
+  about: string
+  photo: {
+    data: Buffer
+    contentType: string
+  }
   created: Date
-  updated: Date
+  updated: number
   hashed_password: string
   salt: string
   _password: string
@@ -26,6 +31,14 @@ const UserSchema = new Schema<IUserDocument>({
     unique: true,
     match: [/.+@.+\..+/, 'Please fill a valid email address'],
     required: [true, 'Email is required']
+  },
+  about: {
+    type: String,
+    trim: true
+  },
+  photo: {
+    data: Buffer,
+    contentType: String
   },
   created: {
     type: Date,
