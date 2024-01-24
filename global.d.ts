@@ -7,6 +7,8 @@ declare global {
       auth: {
         _id: string
       }
+      file: Record
+      media: Record
     }
   }
 }
