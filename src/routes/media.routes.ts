@@ -6,7 +6,9 @@ import mediaCtrl from '../controllers/media.controller'
 const router = Router()
 
 router.route('/api/media/new/:userId').post(authCtrl.requireSignIn, mediaCtrl.create)
+router.route('/api/medias/video/:mediaId').get(mediaCtrl.video)
 
 router.param('userId', userCtrl.userById)
+router.param('mediaId', mediaCtrl.mediaById)
 
 export default router
