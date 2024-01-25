@@ -75,8 +75,12 @@ const video = (req: Request, res: Response) => {
   res.set('Cross-Origin-Resource-Policy', 'false')
   const range = req.headers['range']
   if (range && typeof range === 'string') {
-    const start = Number(range.replace(/\D/g, ''))
-    const end = req.file.length - 1
+    const parts = range.replace(/bytes=/, '').split('-')
+    const partialstart = parts[0]
+    const partialend = parts[1]
+
+    const start = parseInt(partialstart, 10)
+    const end = partialend ? parseInt(partialend, 10) : req.file.length - 1
     const chunkSize = end - start + 1
 
     res.writeHead(206, {
@@ -88,7 +92,7 @@ const video = (req: Request, res: Response) => {
 
     const downloadStream = gridfs.openDownloadStream(req.file._id, {
       start,
-      end
+      end: end + 1
     })
 
     downloadStream.on('error', () => {
@@ -114,8 +118,24 @@ const video = (req: Request, res: Response) => {
   }
 }
 
+const listPopular = async (req: Request, res: Response) => {
+  try {
+    const media = await Media.find({})
+      .populate('postedBy', '_id name')
+      .sort('-views')
+      .limit(9)
+      .exec()
+    res.json(media)
+  } catch (err) {
+    return res.status(400).json({
+      error: dbErrorHandler.getErrorMessage(err)
+    })
+  }
+}
+
 export default {
   create,
   mediaById,
-  video
+  video,
+  listPopular
 }

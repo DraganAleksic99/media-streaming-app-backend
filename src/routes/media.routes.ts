@@ -7,7 +7,7 @@ const router = Router()
 
 router.route('/api/media/new/:userId').post(authCtrl.requireSignIn, mediaCtrl.create)
 router.route('/api/medias/video/:mediaId').get(mediaCtrl.video)
-
+router.route('/api/media/popular').get(mediaCtrl.listPopular)
 router.param('userId', userCtrl.userById)
 router.param('mediaId', mediaCtrl.mediaById)
 
