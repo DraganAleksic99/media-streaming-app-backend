@@ -133,9 +133,24 @@ const listPopular = async (req: Request, res: Response) => {
   }
 }
 
+const listByUser = async (req: Request, res: Response) => {
+  try {
+    const media = await Media.find({ postedBy: req.profile._id })
+      .populate('postedBy', '_id name')
+      .sort('-created')
+      .exec()
+    res.json(media)
+  } catch (err) {
+    return res.status(400).json({
+      error: dbErrorHandler.getErrorMessage(err)
+    })
+  }
+}
+
 export default {
   create,
   mediaById,
   video,
-  listPopular
+  listPopular,
+  listByUser
 }
