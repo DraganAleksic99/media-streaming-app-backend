@@ -147,10 +147,27 @@ const listByUser = async (req: Request, res: Response) => {
   }
 }
 
+const incrementViews = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await Media.findByIdAndUpdate(req.media._id, { $inc: { views: 1 } }, { new: true }).exec()
+    next()
+  } catch (err) {
+    return res.status(400).json({
+      error: dbErrorHandler.getErrorMessage(err)
+    })
+  }
+}
+
+const read = (req: Request, res: Response) => {
+  return res.json(req.media)
+}
+
 export default {
   create,
   mediaById,
   video,
   listPopular,
-  listByUser
+  listByUser,
+  incrementViews,
+  read
 }
