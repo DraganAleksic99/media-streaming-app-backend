@@ -162,6 +162,30 @@ const read = (req: Request, res: Response) => {
   return res.json(req.media)
 }
 
+const isPoster = (req: Request, res: Response, next: NextFunction) => {
+  const isPoster = req.media && req.auth && req.media.postedBy._id == req.auth._id
+  if (!isPoster) {
+    return res.status(403).json({
+      error: 'User is not authorized'
+    })
+  }
+  next()
+}
+
+const update = async (req: Request, res: Response) => {
+  try {
+    let media = req.media
+    media = extend(media, req.body)
+    media.updated = Date.now()
+    await media.save()
+    res.json(media)
+  } catch (err) {
+    return res.status(400).json({
+      error: dbErrorHandler.getErrorMessage(err)
+    })
+  }
+}
+
 export default {
   create,
   mediaById,
@@ -169,5 +193,7 @@ export default {
   listPopular,
   listByUser,
   incrementViews,
-  read
+  read,
+  isPoster,
+  update
 }
