@@ -4,9 +4,9 @@ import cookieParser from 'cookie-parser'
 import compress from 'compression'
 import cors from 'cors'
 import helmet from 'helmet'
-import userRoutes from '../src/routes/user.routes'
-import authRoutes from '../src/routes/auth.routes'
-import mediaRoutes from '../src/routes/media.routes'
+import userRoutes from './routes/user.routes'
+import authRoutes from './routes/auth.routes'
+import mediaRoutes from './routes/media.routes'
 
 const app: Express = express()
 
