@@ -186,6 +186,19 @@ const update = async (req: Request, res: Response) => {
   }
 }
 
+const remove = async (req: Request, res: Response) => {
+  try {
+    const media = req.media
+    const deletedMedia = await media.remove()
+    gridfs.delete(req.file._id)
+    res.json(deletedMedia)
+  } catch (err) {
+    return res.status(400).json({
+      error: dbErrorHandler.getErrorMessage(err)
+    })
+  }
+}
+
 export default {
   create,
   mediaById,
@@ -195,5 +208,6 @@ export default {
   incrementViews,
   read,
   isPoster,
-  update
+  update,
+  remove
 }

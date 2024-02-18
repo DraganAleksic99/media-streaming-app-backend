@@ -14,6 +14,10 @@ router
   .route('/api/media/:mediaId')
   .put(authCtrl.requireSignIn, mediaCtrl.isPoster, mediaCtrl.update)
 
+router
+  .route('/api/media/:mediaId')
+  .delete(authCtrl.requireSignIn, mediaCtrl.isPoster, mediaCtrl.remove)
+
 router.param('userId', userCtrl.userById)
 router.param('mediaId', mediaCtrl.mediaById)
 
