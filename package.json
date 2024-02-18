@@ -10,7 +10,7 @@
     "coverage": "nyc --reporter=text npm test",
     "build": "tsc",
     "dev": "nodemon --watch src --files",
-    "start": "node dist/server.js",
+    "start": "node -r dotenv/config dist/server.js",
     "lint": "eslint --ignore-path .eslintignore --ext .js,.ts"
   },
   "nyc": {
